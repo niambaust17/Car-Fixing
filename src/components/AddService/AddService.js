@@ -17,7 +17,7 @@ const AddService = () =>
             imageURL: imageURL
         }
 
-        const url = `http://localhost:5050/addService`;
+        const url = `https://boiling-reaches-73904.herokuapp.com/addService`;
 
         fetch(url, {
             method: 'POST',

@@ -7,7 +7,7 @@ const ManageService = () =>
 
     const fetchServices = () =>
     {
-        fetch(`http://localhost:5050/services`)
+        fetch(`https://boiling-reaches-73904.herokuapp.com/services`)
             .then(res => res.json())
             .then(data => setServices(data))
     }
@@ -18,7 +18,7 @@ const ManageService = () =>
 
     const deleteService = id =>
     {
-        fetch(`http://localhost:5050/service/${ id }`, {
+        fetch(`https://boiling-reaches-73904.herokuapp.com/service/${ id }`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -49,7 +49,7 @@ const ManageService = () =>
                         <tbody>
                             {
                                 services.map((service, index) =>
-                                    <tr>
+                                    <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td><img src={service.imageURL} alt="" style={{ width: '60px' }} /></td>
                                         <td>{service.title}</td>

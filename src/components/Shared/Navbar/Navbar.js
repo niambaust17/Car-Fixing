@@ -25,10 +25,7 @@ const Navbar = () =>
                             <Link className="nav-link" to="/dashboard">Dashboard</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/dashboard">Admin</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="#">Contact</Link>
+                            <Link className="nav-link" to="">Contact</Link>
                         </li>
                         {
                             loggedInUser?.isSignedIn &&

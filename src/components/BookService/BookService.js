@@ -15,7 +15,7 @@ const BookService = () =>
 
     useEffect(() =>
     {
-        fetch('http://localhost:5050/services?title=' + params.title)
+        fetch('https://boiling-reaches-73904.herokuapp.com/services?title=' + params.title)
             .then(res => res.json())
             .then(data => setService(data[0]))
     }, [])
@@ -26,7 +26,7 @@ const BookService = () =>
     {
         const orderDetails = { ...loggedInUser, status: 'Pending', payWith: 'Credit Card', title: service?.title, cost: service?.cost, paymentId, orderTime: new Date() }
 
-        fetch('http://localhost:5050/addOrder', {
+        fetch('https://boiling-reaches-73904.herokuapp.com/addOrder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderDetails)

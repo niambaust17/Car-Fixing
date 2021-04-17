@@ -13,7 +13,7 @@ const MakeAdmin = () =>
 
     const handleSubmit = (e) =>
     {
-        fetch('http://localhost:5050/addAdmin', {
+        fetch('https://boiling-reaches-73904.herokuapp.com/addAdmin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(adminInfo)

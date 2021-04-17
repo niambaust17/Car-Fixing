@@ -6,7 +6,7 @@ import './Header.css';
 const Header = () =>
 {
     return (
-        <div style={{ backgroundColor: 'lightgoldenrodyellow', height: '100vh' }}>
+        <div style={{ backgroundColor: 'lightgoldenrodyellow' }}>
             <Navbar />
             <HeaderMain />
         </div>

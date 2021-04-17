@@ -4,6 +4,8 @@ import { UserContext } from '../../../App';
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
+import './Login.css';
+import google from '../../../images/google.png'
 
 if (!firebase.apps.length)
 {
@@ -29,6 +31,17 @@ const Login = () =>
         }
     }
 
+    const setUserToken = () =>
+    {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken)
+        {
+            sessionStorage.setItem('token', idToken);
+        }).catch(function (error)
+        {
+            // Handle error
+        });
+    }
+
     const handleGoogleSignIn = () =>
     {
         const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -43,6 +56,7 @@ const Login = () =>
                     email,
                     imgSrc: photoURL,
                 };
+                setUserToken();
                 setLoggedInUser(signedInUser);
                 handleResponse(res, true)
             }).catch((err) =>
@@ -54,13 +68,14 @@ const Login = () =>
     }
     return (
         <div className="container text-center">
-            <h1 className="my-5">Please Login</h1>
             <div className="row">
-                <div className="col-md-6">
-                    <img src="" alt="" />
+                <div className="login-bg col-md-6">
                 </div>
-                <div className="col-md-6">
-                    <button onClick={handleGoogleSignIn} className="btn btn-outline-success btn-lg">Login with Google</button>
+                <div className="col-md-6 text-center">
+                    <h1 className="my-5">Please Login</h1>
+                    <button onClick={handleGoogleSignIn} className="btn btn-outline-success btn-lg">
+                        <img src={google} alt="" style={{ width: '22px' }} /> Connect with Google
+                    </button>
                 </div>
             </div>
         </div>

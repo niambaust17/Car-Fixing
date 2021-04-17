@@ -9,7 +9,7 @@ const BookingService = () =>
     console.log(loggedInUser);
     useEffect(() =>
     {
-        fetch('http://localhost:5050/orders?email=' + loggedInUser.email)
+        fetch('https://boiling-reaches-73904.herokuapp.com/orders?email=' + loggedInUser.email)
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [])
@@ -30,7 +30,7 @@ const BookingService = () =>
                                     <div className="card h-100">
                                         <div className="card-body">
                                             <h5 className="card-title">{order.title}</h5>
-                                            <p className="card-text">{order.cost}$</p>
+                                            <p className="card-text">${order.cost}</p>
                                             <p className="card-text">{order.status}</p>
                                         </div>
                                     </div>

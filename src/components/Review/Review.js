@@ -16,7 +16,7 @@ const Review = () =>
 
         console.log(reviewInfo);
 
-        const url = `http://localhost:5050/addReview`;
+        const url = `https://boiling-reaches-73904.herokuapp.com/addReview`;
 
         fetch(url, {
             method: 'POST',

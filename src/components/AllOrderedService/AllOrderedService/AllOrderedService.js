@@ -6,11 +6,15 @@ const AllOrders = () =>
 {
     const [orders, setOrders] = useState([])
 
-    useEffect(() =>
+    const fetchOrders = () =>
     {
-        fetch(`http://localhost:5050/orders`)
+        fetch(`https://boiling-reaches-73904.herokuapp.com/orders`)
             .then(res => res.json())
             .then(data => setOrders(data))
+    }
+    useEffect(() =>
+    {
+        fetchOrders();
     }, [])
 
     return (
@@ -20,7 +24,7 @@ const AllOrders = () =>
                     <Sidebar />
                 </div>
                 <div className="col-md-9">
-                    <OrderedServiceDataTable orders={orders} />
+                    <OrderedServiceDataTable orders={orders} fetchOrders={fetchOrders} />
                 </div>
             </div>
         </div>

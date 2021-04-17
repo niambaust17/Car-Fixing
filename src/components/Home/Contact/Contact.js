@@ -1,15 +1,16 @@
 import React from 'react';
-import img from '../../../images/header-bg.jpg';
+import contact from '../../../images/contact.png';
+
 const Contact = () =>
 {
     return (
-        <div className="container">
+        <section className="container" id="contact">
             <h1 className="text-center my-5">Contact</h1>
             <div className="row">
-                <div className="col-md-5">
-                    <img src={img} alt="" style={{ width: '100%' }} />
+                <div className="col-md-6">
+                    <img src={contact} alt="" width="100%" />
                 </div>
-                <div className="col-md-7">
+                <div className="col-md-6">
                     <form action="">
                         <div className="form-group">
                             <input type="text" className="form-control mb-3" placeholder="Email Address *" />
@@ -26,7 +27,7 @@ const Contact = () =>
                     </form>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
