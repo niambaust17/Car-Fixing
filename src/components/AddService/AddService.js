@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router';
 
 const AddService = () =>
 {
+    const history = useHistory();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [imageURL, setImageURL] = useState(null);
 
@@ -27,6 +29,8 @@ const AddService = () =>
             body: JSON.stringify(serviceInfo)
         })
             .then(res => console.log('server side', res));
+
+        history.push("/allOrderedService");
     };
 
     const handleImageUpload = event =>

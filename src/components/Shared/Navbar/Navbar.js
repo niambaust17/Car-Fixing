@@ -1,10 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../../../App';
 
 const Navbar = () =>
 {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [admin, setIsAdmin] = useState(false);
+
+    useEffect(() =>
+    {
+        fetch('https://boiling-reaches-73904.herokuapp.com/isAdmin', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ email: loggedInUser.email })
+        })
+            .then(res => res.json())
+            .then(data => setIsAdmin(data));
+    }, [])
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
@@ -21,9 +33,15 @@ const Navbar = () =>
                         <li className="nav-item">
                             <Link className="nav-link" to="">Expert</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/dashboard">Dashboard</Link>
-                        </li>
+                        {
+                            admin ?
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/allOrderedService">Admin</Link>
+                                </li> :
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/bookingService">Dashboard</Link>
+                                </li>
+                        }
                         <li className="nav-item">
                             <Link className="nav-link" to="">Contact</Link>
                         </li>

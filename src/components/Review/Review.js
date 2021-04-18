@@ -1,9 +1,11 @@
 import React from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router';
 
 const Review = () =>
 {
+    const history = useHistory();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data =>
@@ -13,8 +15,6 @@ const Review = () =>
             address: data.address,
             description: data.description
         }
-
-        console.log(reviewInfo);
 
         const url = `https://boiling-reaches-73904.herokuapp.com/addReview`;
 
@@ -26,6 +26,8 @@ const Review = () =>
             body: JSON.stringify(reviewInfo)
         })
             .then(res => console.log('server side', res));
+
+        history.push("/bookingService");
     };
 
     return (

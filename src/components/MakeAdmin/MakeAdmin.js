@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 
 const MakeAdmin = () =>
 {
+    const history = useHistory();
     const [adminInfo, setAdminInfo] = useState({});
     const handleBlur = e =>
     {
@@ -23,6 +25,7 @@ const MakeAdmin = () =>
             {
                 console.log(data);
             })
+        history.push("/allOrderedService");
         e.preventDefault();
     }
 

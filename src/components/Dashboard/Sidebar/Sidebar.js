@@ -53,13 +53,11 @@ const Sidebar = () =>
                                     <FontAwesomeIcon icon={faTrash} /><span>Manage Services</span>
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/" onClick={() => setLoggedInUser({})} className="text-white"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></Link>
+                            </li>
                         </> :
                         <>
-                            <li>
-                                <Link to="/bookService/:id" className="text-white">
-                                    <FontAwesomeIcon icon={faAddressCard} /><span>Book Service</span>
-                                </Link>
-                            </li>
                             <li>
                                 <Link to="/bookingService" className="text-white">
                                     <FontAwesomeIcon icon={faList} /><span>Service List</span>
@@ -70,11 +68,11 @@ const Sidebar = () =>
                                     <FontAwesomeIcon icon={faCommentAlt} /><span>Review</span>
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/" onClick={() => setLoggedInUser({})} className="text-white"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></Link>
+                            </li>
                         </>
                 }
-                <li>
-                    <Link to="/" onClick={() => setLoggedInUser({})} className="text-white"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></Link>
-                </li>
             </ul>
         </div>
     );
