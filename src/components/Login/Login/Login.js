@@ -1,81 +1,68 @@
-import React, { useContext } from 'react';
-import { useHistory, useLocation } from 'react-router';
-import { UserContext } from '../../../App';
-import firebase from "firebase/app";
+import React, { useRef, useState } from 'react';
 import "firebase/auth";
-import firebaseConfig from './firebase.config';
 import './Login.css';
-import google from '../../../images/google.png'
-
-if (!firebase.apps.length)
-{
-    firebase.initializeApp(firebaseConfig);
-}
-else
-{
-    firebase.app();
-}
+import useAuth from '../../../hooks/useAuth';
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () =>
 {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const history = useHistory();
-    const location = useLocation();
-    const { from } = location.state || { from: { pathname: "/" } };
+    let nameRef = useRef();
+    let emailRef = useRef();
+    let passwordRef = useRef();
+    let confirmPasswordRef = useRef();
 
-    const handleResponse = (res, redirect) =>
+    const [passwordError, setPasswordError] = useState('');
+    const [newUser, setNewUser] = useState(false);
+    const { error, googleSignIn, emailSignUp, emailSignIn, resetPassword } = useAuth();
+
+    const handleSubmit = async (e) =>
     {
-        if (redirect)
+        e.preventDefault();
+
+        if (newUser)
         {
-            history.replace(from);
+            if (passwordRef.current.value !== confirmPasswordRef.current.value)
+            {
+                return setPasswordError('Password do not match');
+            }
+
+            await emailSignUp(nameRef.current.value, emailRef.current.value, confirmPasswordRef.current.value);
+        }
+
+        if (!newUser)
+        {
+            await emailSignIn(emailRef.current.value, passwordRef.current.value);
         }
     }
 
-    const setUserToken = () =>
+    const handleResetPassword = () =>
     {
-        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken)
-        {
-            sessionStorage.setItem('token', idToken);
-        }).catch(function (error)
-        {
-            // Handle error
-        });
+        resetPassword(emailRef.current.value);
     }
 
-    const handleGoogleSignIn = () =>
-    {
-        const googleProvider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth()
-            .signInWithPopup(googleProvider)
-            .then((res) =>
-            {
-                const { displayName, email, photoURL } = res.user;
-                const signedInUser = {
-                    isSignedIn: true,
-                    displayName,
-                    email,
-                    imgSrc: photoURL,
-                };
-                setUserToken();
-                setLoggedInUser(signedInUser);
-                handleResponse(res, true)
-            }).catch((err) =>
-            {
-                const errorCode = err.code;
-                const errorMessage = err.message;
-                console.log(errorCode, errorMessage);
-            });
-    }
     return (
-        <div className="container text-center">
-            <div className="row">
-                <div className="login-bg col-md-6">
-                </div>
-                <div className="col-md-6 text-center">
-                    <h1 className="my-5">Please Login</h1>
-                    <button onClick={handleGoogleSignIn} className="btn btn-outline-success btn-lg">
-                        <img src={google} alt="" style={{ width: '22px' }} /> Connect with Google
-                    </button>
+        <div className="login_container text-center">
+            <div className="login_body">
+                {
+                    error && <div className="alert alert-danger" role="alert">{error}</div>
+                }
+                {
+                    passwordError && <div className="alert alert-danger" role="alert">{passwordError}</div>
+                }
+                <form onSubmit={handleSubmit}>
+                    {newUser && <input className="form-control mb-2" type="text" placeholder="Name" ref={nameRef} required />}
+                    <input className="form-control mb-2" type="email" placeholder="Email" ref={emailRef} required />
+                    <input className="form-control mb-2" type="password" placeholder="Password" ref={passwordRef} required />
+                    {newUser && <input className="form-control mb-2" type="password" placeholder="Confirm Password" ref={confirmPasswordRef} required />}
+                    <button className="w-100 btn btn-primary mb-2" type="submit">{newUser ? 'Sign Up' : 'Log In'}</button>
+                </form>
+                <div className="w-100 text-center mb-2">{newUser ? 'Already have an account?' : 'Create an account?'} <span style={{ cursor: 'pointer' }} onClick={() => setNewUser(!newUser)}>{newUser ? 'Log In' : 'Sign Up'}</span></div>
+                <div className="w-100 text-center mb-2" style={{ cursor: 'pointer' }} onClick={handleResetPassword}>Forgot Password</div>
+                <div className="google_login"
+                    onClick={googleSignIn}
+                >
+                    <FcGoogle size="32px" />
+                    <p style={{ marginBottom: 0, padding: '0 10px' }}>Log in with Google</p>
                 </div>
             </div>
         </div>

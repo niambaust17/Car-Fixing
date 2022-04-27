@@ -31,10 +31,10 @@ const ManageService = () =>
     return (
         <div className="container-fluid">
             <div className="row d-flex">
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <Sidebar />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-10">
                     <h1>Manage Service</h1>
                     <table className="table table-hover">
                         <thead>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Service from '../Service/Service';
+import './Services.css';
 
 const Services = () =>
 {
@@ -13,12 +14,16 @@ const Services = () =>
     }, [])
 
     return (
-        <section className="container text-center">
-            <h1 className="my-5">Services</h1>
-            <div className="row row-cols-1 row-cols-xl-4 row-cols-md-2 row-cols-sm-1 g-4">
-                {
-                    services.map(service => <Service key={service._id} service={service} />)
-                }
+        <section className="services text-center">
+            <div className="blur">
+                <div className="container py-5">
+                    <h1 className="pb-5">Services</h1>
+                    <div className="row row-cols-1 row-cols-xl-4 row-cols-md-2 row-cols-sm-1 g-4">
+                        {
+                            services.map(service => <Service key={service._id} service={service} />)
+                        }
+                    </div>
+                </div>
             </div>
         </section>
     );

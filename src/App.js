@@ -3,12 +3,11 @@ import Home from './components/Home/Home/Home';
 import
 {
   BrowserRouter as Router,
-  Switch,
-  Route
+  Routes,
+  Route,
+  Navigate
 } from "react-router-dom";
-import { createContext, useState } from 'react';
 import Login from './components/Login/Login/Login';
-import PrivateRoute from './components/Login/PrivateRoute/PrivateRoute';
 import Dashboard from './components/Dashboard/Dashboard/Dashboard';
 import AllOrderedService from './components/AllOrderedService/AllOrderedService/AllOrderedService';
 import AddService from './components/AddService/AddService';
@@ -17,53 +16,31 @@ import ManageService from './components/ManageService/ManageService';
 import Review from './components/Review/Review';
 import BookingService from './components/BookingService/BookingService';
 import BookService from './components/BookService/BookService';
-
-
-export const UserContext = createContext();
+import PrivateOutlet from './components/PrivateOutlet/PrivateOutlet';
+import AuthProvider from './context/AuthProvider';
 
 function App()
 {
-  const [loggedInUser, setLoggedInUser] = useState({});
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-      <Router>
-        <Switch>
-          <Route path="/home">
-            <Home />
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route path="/home" element={<Navigate to="/" />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<PrivateOutlet />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="allOrderedService" element={<AllOrderedService />} />
+            <Route path="addService" element={<AddService />} />
+            <Route path="makeAdmin" element={<MakeAdmin />} />
+            <Route path="manageService" element={<ManageService />} />
+            <Route path="bookService/:title" element={<BookService />} />
+            <Route path="bookingService" element={<BookingService />} />
+            <Route path="review" element={<Review />} />
           </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <PrivateRoute path="/dashboard">
-            <Dashboard />
-          </PrivateRoute>
-          <PrivateRoute path="/allOrderedService">
-            <AllOrderedService />
-          </PrivateRoute>
-          <PrivateRoute path="/addService">
-            <AddService />
-          </PrivateRoute>
-          <PrivateRoute path="/makeAdmin">
-            <MakeAdmin />
-          </PrivateRoute>
-          <PrivateRoute path="/manageService">
-            <ManageService />
-          </PrivateRoute>
-          <PrivateRoute path="/bookService/:title">
-            <BookService />
-          </PrivateRoute>
-          <PrivateRoute path="/bookingService">
-            <BookingService />
-          </PrivateRoute>
-          <PrivateRoute path="/review">
-            <Review />
-          </PrivateRoute>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </UserContext.Provider>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
 

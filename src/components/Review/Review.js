@@ -1,11 +1,11 @@
 import React from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import { useForm } from "react-hook-form";
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const Review = () =>
 {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data =>
@@ -27,16 +27,16 @@ const Review = () =>
         })
             .then(res => console.log('server side', res));
 
-        history.push("/bookingService");
+        navigate("/bookingService");
     };
 
     return (
         <div className="container-fluid">
             <div className="row d-flex">
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <Sidebar />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-10">
                     <h1>Review</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input className="form-control" placeholder="Enter your name" {...register("name", { required: true })} />

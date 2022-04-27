@@ -3,6 +3,7 @@ import expert1 from '../../../images/sm-1.jpg';
 import expert2 from '../../../images/sm-2.jpg';
 import expert3 from '../../../images/sm-3.jpg';
 import Expert from '../Expert/Expert';
+import './Experts.css';
 
 const expertData = [
     {
@@ -30,12 +31,16 @@ const expertData = [
 const Experts = () =>
 {
     return (
-        <section className="container text-center">
-            <h1 className="my-5">Experts</h1>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                {
-                    expertData.map(expert => <Expert key={expert.id} expert={expert} />)
-                }
+        <section className="experts text-center">
+            <div className="blur">
+                <div className="container py-5">
+                    <h1 className="pb-5">Experts</h1>
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                        {
+                            expertData.map(expert => <Expert key={expert.id} expert={expert} />)
+                        }
+                    </div>
+                </div>
             </div>
         </section>
     );

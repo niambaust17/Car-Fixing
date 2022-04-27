@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 
 const MakeAdmin = () =>
 {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [adminInfo, setAdminInfo] = useState({});
     const handleBlur = e =>
     {
@@ -25,17 +25,17 @@ const MakeAdmin = () =>
             {
                 console.log(data);
             })
-        history.push("/allOrderedService");
+        navigate("/allOrderedService");
         e.preventDefault();
     }
 
     return (
         <div className="container-fluid">
             <div className="row d-flex">
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <Sidebar />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-10">
                     <h1>Make Admin</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="input-group mb-3">

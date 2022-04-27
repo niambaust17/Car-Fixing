@@ -11,13 +11,13 @@ const Testimonial = ({ review }) =>
 
     return (
         <div className="col">
-            <animated.div className="review-card card h-100"
+            <animated.div className="review-card card"
                 onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
                 onMouseLeave={() => set({ xys: [0, 0, 1] })}
                 style={{ transform: props.xys.interpolate(trans) }}>
                 <div className="row text-start ps-2">
                     <div className="card-body">
-                        <h5 className="card-title text-success">{review.name}</h5>
+                        <h5 className="card-title">{review.name}</h5>
                         <h6 className="card-text">{review.address}</h6>
                         <p className="card-text">{review.description}</p>
                     </div>

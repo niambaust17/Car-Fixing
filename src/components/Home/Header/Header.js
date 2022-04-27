@@ -6,9 +6,11 @@ import './Header.css';
 const Header = () =>
 {
     return (
-        <div style={{ backgroundColor: 'lightgoldenrodyellow' }}>
-            <Navbar />
-            <HeaderMain />
+        <div className="header">
+            <div className="blur">
+                <Navbar />
+                <HeaderMain />
+            </div>
         </div>
     );
 };

@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import { useForm } from "react-hook-form";
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const AddService = () =>
 {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [imageURL, setImageURL] = useState(null);
 
@@ -30,7 +30,7 @@ const AddService = () =>
         })
             .then(res => console.log('server side', res));
 
-        history.push("/allOrderedService");
+        navigate("/allOrderedService");
     };
 
     const handleImageUpload = event =>
@@ -54,10 +54,10 @@ const AddService = () =>
     return (
         <div className="container-fluid">
             <div className="row d-flex">
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <Sidebar />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-10">
                     <h1>Add Service</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input className="form-control" type="file" onChange={handleImageUpload} />

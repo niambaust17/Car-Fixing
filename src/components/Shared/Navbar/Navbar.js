@@ -1,29 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { UserContext } from '../../../App';
+import useAuth from '../../../hooks/useAuth';
+import './Navbar.css';
+import { GrMenu, GrClose } from "react-icons/gr";
+
 
 const Navbar = () =>
 {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const { user, logOut } = useAuth();
     const [admin, setIsAdmin] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() =>
     {
         fetch('https://boiling-reaches-73904.herokuapp.com/isAdmin', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email: loggedInUser.email })
+            body: JSON.stringify({ email: user?.email })
         })
             .then(res => res.json())
             .then(data => setIsAdmin(data));
-    }, [])
+    }, [user?.email])
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light">
+        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
             <div className="container">
                 <Link className="navbar-brand" to="/">CAR FIXING</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                <button className="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={() => setIsOpen(!isOpen)}>
+                    {!isOpen ? <GrMenu size="24px" /> : <GrClose size="24px" />}
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -46,15 +50,15 @@ const Navbar = () =>
                             <Link className="nav-link" to="">Contact</Link>
                         </li>
                         {
-                            loggedInUser?.isSignedIn &&
+                            user?.email &&
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/">{loggedInUser.displayName}</Link>
+                                    <Link className="nav-link" to="/">{user.displayName}</Link>
                                 </li>
                             </>
                         }
                         <li className="nav-item">
-                            {loggedInUser.isSignedIn ? <Link className="nav-link" to="/" onClick={() => setLoggedInUser({})}>Logout</Link> : <Link className="nav-link" to="/login">Login</Link>}
+                            {user?.email ? <Link className="nav-link" to="/" onClick={logOut}>Logout</Link> : <Link className="nav-link" to="/login">Login</Link>}
                         </li>
                     </ul>
                 </div>

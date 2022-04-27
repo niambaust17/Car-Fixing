@@ -1,26 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../App';
+import React, { useEffect, useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 
 const BookingService = () =>
 {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const { user } = useAuth();
     const [orders, setOrders] = useState([])
 
     useEffect(() =>
     {
-        fetch('https://boiling-reaches-73904.herokuapp.com/orders?email=' + loggedInUser.email)
+        fetch('https://boiling-reaches-73904.herokuapp.com/orders?email=' + user.email)
             .then(res => res.json())
             .then(data => setOrders(data))
-    }, [])
+    }, [user.email])
 
     return (
         <div className="container-fluid">
             <div className="row d-flex">
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <Sidebar />
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-10">
                     <h1>Service List By User</h1>
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         {

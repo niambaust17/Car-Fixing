@@ -1,6 +1,30 @@
+footer {
+  background-color: #0c2139;
+  color: #f9f871;
+}
+
 .social-media .icon {
-  font-size: 1.5rem;
-  color: #b5c711;
-  border: 1px solid #3ec931;
-  padding: 10px;
+  font-size: 2.5rem;
+  color: #f9f871;
+}
+
+.subscribe{
+  border: 1px solid #f9f871;
+  color: #f9f871;
+  background-color: transparent;
+  padding: 6px 18px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.subscribe:hover{
+  background-color:#f9f871;
+  color: #0c2139;
+}
+
+.tag-button{
+  border: 1px solid #f9f871;
+  color: #f9f871;
+  background-color: transparent;
+  border-radius: 4px;
+  text-transform: uppercase;
 }

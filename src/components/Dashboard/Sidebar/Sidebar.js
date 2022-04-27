@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faSignOutAlt, faList, faAddressCard, faPlus, faUserPlus, faHome, faBoxOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faSignOutAlt, faList, faPlus, faUserPlus, faHome, faBoxOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.css';
-import { UserContext } from '../../../App';
+import useAuth from '../../../hooks/useAuth';
 
 const Sidebar = () =>
 {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const { user, logOut } = useAuth();
     const [admin, setIsAdmin] = useState(false);
 
     useEffect(() =>
@@ -15,11 +15,11 @@ const Sidebar = () =>
         fetch('https://boiling-reaches-73904.herokuapp.com/isAdmin', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email: loggedInUser.email })
+            body: JSON.stringify({ email: user.email })
         })
             .then(res => res.json())
             .then(data => setIsAdmin(data));
-    }, [])
+    }, [user.email])
 
 
     return (
@@ -53,9 +53,6 @@ const Sidebar = () =>
                                     <FontAwesomeIcon icon={faTrash} /><span>Manage Services</span>
                                 </Link>
                             </li>
-                            <li>
-                                <Link to="/" onClick={() => setLoggedInUser({})} className="text-white"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></Link>
-                            </li>
                         </> :
                         <>
                             <li>
@@ -68,11 +65,11 @@ const Sidebar = () =>
                                     <FontAwesomeIcon icon={faCommentAlt} /><span>Review</span>
                                 </Link>
                             </li>
-                            <li>
-                                <Link to="/" onClick={() => setLoggedInUser({})} className="text-white"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></Link>
-                            </li>
                         </>
                 }
+                <li>
+                    <Link to="/" onClick={logOut} className="text-white"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></Link>
+                </li>
             </ul>
         </div>
     );

@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import { useForm } from "react-hook-form";
-import { UserContext } from '../../App';
 import { useParams } from 'react-router';
 import ProcessPayment from '../ProcessPayment/ProcessPayment';
+import useAuth from '../../hooks/useAuth';
 
 const BookService = () =>
 {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const { user } = useAuth();
     const { register, handleSubmit } = useForm();
     const params = useParams();
 
@@ -18,13 +18,13 @@ const BookService = () =>
         fetch('https://boiling-reaches-73904.herokuapp.com/services?title=' + params.title)
             .then(res => res.json())
             .then(data => setService(data[0]))
-    }, [])
+    }, [params.title])
 
     const onSubmit = data => { console.log(data) }
 
     const handlePaymentSuccess = paymentId =>
     {
-        const orderDetails = { ...loggedInUser, status: 'Pending', payWith: 'Credit Card', title: service?.title, cost: service?.cost, paymentId, orderTime: new Date() }
+        const orderDetails = { ...user, status: 'Pending', payWith: 'Credit Card', title: service?.title, cost: service?.cost, paymentId, orderTime: new Date() }
 
         fetch('https://boiling-reaches-73904.herokuapp.com/addOrder', {
             method: 'POST',

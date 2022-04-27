@@ -1,5 +1,23 @@
-.header-title {
+.banner{
+  color: rgba(249, 249, 113, 0.85);
+}
+.banner span {
   font-size: 4rem;
   font-weight: 700;
-  color: lightgreen;
+  background-image: url('https://images.unsplash.com/photo-1612048405411-f71a1b9d3e8a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.view-button{
+  padding: 10px 20px;
+  background-color: rgba(249, 249, 113, 0.85);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.view-button:hover{
+  background-color: rgba(255, 255, 255, 0.25);
+  color: rgba(249, 249, 113, 0.85);
 }
