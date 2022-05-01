@@ -36,7 +36,7 @@ const ManageService = () =>
                 </div>
                 <div className="col-md-10">
                     <h1>Manage Service</h1>
-                    <table className="table table-hover">
+                    <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -50,11 +50,11 @@ const ManageService = () =>
                             {
                                 services.map((service, index) =>
                                     <tr key={index}>
-                                        <th scope="row">{index + 1}</th>
-                                        <td><img src={service.imageURL} alt="" style={{ width: '60px' }} /></td>
-                                        <td>{service.title}</td>
-                                        <td>${service.cost}</td>
-                                        <td><button onClick={() => deleteService(service._id)} className="btn btn-outline-danger">Delete</button></td>
+                                        <td data-label="#">{index + 1}</td>
+                                        <td data-label="Image"><img src={service.imageURL} alt="" style={{ width: '60px' }} /></td>
+                                        <td data-label="Title">{service.title}</td>
+                                        <td data-label="Cost">৳ {service.cost}</td>
+                                        <td data-label="Action"><button onClick={() => deleteService(service._id)} className="btn btn-outline-danger">Delete</button></td>
                                     </tr>
                                 )
                             }

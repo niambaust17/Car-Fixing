@@ -21,15 +21,15 @@ const BookingService = () =>
                     <Sidebar />
                 </div>
                 <div className="col-md-10">
-                    <h1>Service List By User</h1>
+                    <h1>Service List</h1>
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         {
                             orders.map((order, index) =>
                                 <div className="col" key={index}>
-                                    <div className="card h-100 border-0" style={{ borderRadius: '10px' }}>
+                                    <div className="card h-100 border-0" style={{ borderRadius: '10px', backgroundColor: "#0c2139" }}>
                                         <div className="card-body">
                                             <h5 className="card-title">{order.title}</h5>
-                                            <p className="card-text">${order.cost}</p>
+                                            <p className="card-text">৳ {order.cost}</p>
                                             <p className="card-text d-inline p-2" style={{ borderRadius: '7px', backgroundColor: '#90ee904d' }}>{order.status}</p>
                                         </div>
                                     </div>

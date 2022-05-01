@@ -24,7 +24,9 @@ const AllOrders = () =>
                     <Sidebar />
                 </div>
                 <div className="col-md-10">
-                    <OrderedServiceDataTable orders={orders} fetchOrders={fetchOrders} />
+                    <div className="">
+                        <OrderedServiceDataTable orders={orders} fetchOrders={fetchOrders} />
+                    </div>
                 </div>
             </div>
         </div>

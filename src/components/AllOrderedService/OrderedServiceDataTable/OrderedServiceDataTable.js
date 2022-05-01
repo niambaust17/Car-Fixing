@@ -1,8 +1,11 @@
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import './OrderedServiceDataTable.css';
 
 const OrdersDataTable = ({ orders, fetchOrders }) =>
 {
-    const [updateStatus, setUpdateStatus] = useState("")
+    const [updateStatus, setUpdateStatus] = useState();
     const handleUpdateBtn = id =>
     {
         const updateData = { id, updateStatus }
@@ -20,15 +23,15 @@ const OrdersDataTable = ({ orders, fetchOrders }) =>
 
     }
 
-    const handleChange = (e) =>
+    const handleChange = (e, id) =>
     {
         setUpdateStatus(e.target.value);
     }
 
     return (
-        <div>
+        <>
             <h1>Order List</h1>
-            <table className="table table-hover">
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -37,34 +40,35 @@ const OrdersDataTable = ({ orders, fetchOrders }) =>
                         <th scope="col">Pay With</th>
                         <th scope="col">Current Status</th>
                         <th scope="col">Order Time</th>
-                        <th scope="col">Update</th>
+                        <th scope="col">Select & Update</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         orders.map((order, index) =>
                             <tr key={index}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{order.email}</td>
-                                <td>{order.title}</td>
-                                <td>{order.payWith}</td>
-                                <td>{order.status}</td>
-                                <td>{(new Date(order.orderTime).toDateString('dd/MM/yyyy'))}</td>
-                                <td>
-                                    <select onChange={handleChange} className="form-select" aria-label="Disabled select example">
-                                        <option selected></option>
+                                {/* <th scope="row">{index + 1}</th> */}
+                                <td data-label="#">{index + 1}</td>
+                                <td data-label="Email">{order.email}</td>
+                                <td data-label="Service">{order.title}</td>
+                                <td data-label="Pay With">{order.payWith}</td>
+                                <td data-label="Current Status">{order.status}</td>
+                                <td data-label="Order Time">{(new Date(order.orderTime).toDateString('dd/MM/yyyy'))}</td>
+                                <td data-label="Select & Update">
+                                    <select onChange={handleChange} aria-label="Disabled select example">
+                                        <option></option>
                                         <option value="Pending">Pending</option>
                                         <option value="On Going">On Going</option>
                                         <option value="Done">Done</option>
                                     </select>
-                                    <button onClick={() => handleUpdateBtn(order._id)} className="btn btn-outline-success btn-sm">Update</button>
+                                    <FontAwesomeIcon icon={faEdit} style={{ margin: '0 5px', cursor: 'pointer' }} onClick={() => handleUpdateBtn(order._id)} />
                                 </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
-        </div>
+        </>
     );
 };
 

@@ -40,7 +40,7 @@ const Navbar = () =>
                         {
                             admin ?
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/allOrderedService">Admin</Link>
+                                    <Link className="nav-link" to="/allOrderedService">Admin Dashboard</Link>
                                 </li> :
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/bookingService">Dashboard</Link>
