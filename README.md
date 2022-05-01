@@ -8,10 +8,12 @@ This is a beginner-level web based project. Here we use Firebase Authentication 
 Here we use MongoDB, Express, React, Nodejs, Firebase authentication, Bootstrap, Font Awesome, and javascript ES6 features.
 
 To experience all features, log in as a demo user
+<br/>
 Email: test@gmail.com
 Password: test123
 
 To experience all features, log in as a demo admin
+<br/>
 Email: admin@gmail.com
 Password: admin123
 
